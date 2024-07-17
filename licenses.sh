@@ -30,7 +30,7 @@ else
 fi
 
 if [ -f "/opt/shared/licenses/tn-license.xml" ]; then
-
+    echo "Copying Trading Networks license file"
 else
     echo "Trading Networks license not found - place the license in a tn-license.xml file"
 fi

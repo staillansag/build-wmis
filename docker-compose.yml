@@ -1,0 +1,40 @@
+
+version: '3'
+services:        
+    wm:
+      image: quay.io/staillanibm/wmis:10.15-latest
+      container_name: webmethods1015servers     
+      platform: linux/amd64
+      ports:
+        - "5555:5555"
+        - "5543:5543"
+        - "9999:9999"
+        - "9100:9100"
+        - "9000:9000"
+        - "8585:8585"
+        - "8000-8100:8000-8100"
+      environment:
+        - INSTANCE_NAME=default
+        - JAVA_HOME=/opt/webmethods/jvm/jvm
+        - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+        - LD_LIBRARY_PATH=/opt/webmethods/IntegrationServer/instances/default/lib/jars/
+      volumes:
+        - ./licenses:/opt/shared/licenses
+      networks:
+        - wm
+    postgres:
+      image: quay.io/staillanibm/postgres4wm:10.15-latest
+      container_name: postgres
+      networks:
+        - wm
+      ports:
+        - "5432:5432"
+      environment:
+        - POSTGRES_USER=wm
+        - POSTGRES_PASSWORD=Password123@
+
+networks:
+  wm:
+
+
+
